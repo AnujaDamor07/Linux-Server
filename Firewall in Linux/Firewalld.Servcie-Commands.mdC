@@ -1,0 +1,167 @@
+
+### Checking the Status of Firewalld
+
+1. **Check if firewalld is installed**:
+   ```bash
+   rpm -qa | grep firewalld
+   ```
+
+2. **Display detailed package information about firewalld**:
+   ```bash
+   rpm -qi firewalld
+   ```
+
+3. **Check the current status of firewalld (running or stopped)**:
+   ```bash
+   systemctl status firewalld
+   ```
+
+4. **Enable firewalld to start on boot and immediately start the service**:
+   ```bash
+   systemctl enable firewalld
+   systemctl start firewalld
+   ```
+
+5. **Check the status of firewalld after enabling and starting it**:
+   ```bash
+   systemctl status firewalld
+   ```
+
+---
+
+### Installing and Managing Firewalld
+
+1. **Install firewalld if not already installed**:
+   ```bash
+   yum install firewalld -y
+   ```
+
+2. **Restart firewalld after making configuration changes**:
+   ```bash
+   systemctl restart firewalld
+   ```
+
+3. **List the configuration files related to firewalld**:
+   ```bash
+   rpm -ql firewalld
+   ```
+
+4. **List all configuration files**:
+   ```bash
+   rpm -qc firewalld
+   ```
+
+5. **List all documentation files**:
+   ```bash
+   rpm -qd firewalld
+   ```
+
+6. **Reload firewalld without restarting the service to apply changes**:
+   ```bash
+   firewall-cmd --reload
+   ```
+
+---
+
+### Listing Firewalld Rules
+
+1. **Show all active zones and their associated services**:
+   ```bash
+   firewall-cmd --get-active-zones
+   ```
+
+2. **Display all active firewall rules for the default zone**:
+   ```bash
+   firewall-cmd --list-all
+   ```
+
+---
+
+### Adding Firewall Rules
+
+1. **Allow incoming traffic on specific ports**:
+
+   - Allow FTP traffic on port 21:
+     ```bash
+     firewall-cmd --permanent --add-port=21/tcp
+     ```
+   - Allow HTTP traffic on port 80:
+     ```bash
+     firewall-cmd --permanent --add-port=80/tcp
+     ```
+   - Allow HTTPS traffic on port 443:
+     ```bash
+     firewall-cmd --permanent --add-port=443/tcp
+     ```
+   - Allow SSH traffic on port 22:
+     ```bash
+     firewall-cmd --permanent --add-port=22/tcp
+     ```
+   - Allow DNS traffic on UDP port 53:
+     ```bash
+     firewall-cmd --permanent --add-port=53/udp
+     ```
+   - Allow DHCP traffic on UDP port 67:
+     ```bash
+     firewall-cmd --permanent --add-port=67/udp
+     ```
+   - Allow POP3 email retrieval on port 110:
+     ```bash
+     firewall-cmd --permanent --add-port=110/tcp
+     ```
+   - Allow SMTP email sending on port 25:
+     ```bash
+     firewall-cmd --permanent --add-port=25/udp
+     ```
+   - Allow NTP time synchronization on UDP port 123:
+     ```bash
+     firewall-cmd --permanent --add-port=123/udp
+     ```
+
+2. **Reload the firewall to apply changes**:
+   ```bash
+   firewall-cmd --reload
+   ```
+
+3. **Restart firewalld service after changes**:
+   ```bash
+   systemctl restart firewalld.service
+   ```
+
+4. **Check the rules again**:
+   ```bash
+   firewall-cmd --list-all
+   ```
+
+---
+
+### Testing the Configuration
+
+1. **Reboot the system** and check firewall rules:
+   ```bash
+   reboot
+   firewall-cmd --list-all
+   ```
+
+2. **Install netcat (nc) to test open ports**:
+   ```bash
+   yum install netcat
+   ```
+
+3. **Set up a portable server on port 21**:
+   ```bash
+   nc -nlvp 21
+   ```
+
+4. **On another shell, connect via SSH**:
+   ```bash
+   ssh <your-username>@<your-ip-address>
+   ```
+
+5. **Check open ports**:
+   ```bash
+   netstat -nltup
+   ```
+
+---
+
